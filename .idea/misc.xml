@@ -9,6 +9,7 @@
       <list>
         <option value="$PROJECT_DIR$/security-01-base/pom.xml" />
         <option value="$PROJECT_DIR$/security-02-db-login/pom.xml" />
+        <option value="$PROJECT_DIR$/security-03-login-page/pom.xml" />
       </list>
     </option>
   </component>

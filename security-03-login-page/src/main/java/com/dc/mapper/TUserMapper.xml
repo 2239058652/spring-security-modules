@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dc.mapper.TUserMapper">
+
+    <!-- 显式定义 resultMap -->
+    <resultMap id="TUserResult" type="com.dc.entity.TUser">
+        <id property="id" column="id"/>
+        <result property="loginAct" column="login_act"/>
+        <result property="loginPwd" column="login_pwd"/>
+        <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="accountNoExpired" column="account_no_expired"/>
+        <result property="credentialsNoExpired" column="credentials_no_expired"/>
+        <result property="accountNoLocked" column="account_no_locked"/>
+        <result property="accountEnabled" column="account_enabled"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createBy" column="create_by"/>
+        <result property="editTime" column="edit_time"/>
+        <result property="editBy" column="edit_by"/>
+        <result property="lastLoginTime" column="last_login_time"/>
+    </resultMap>
+
+    <!-- 插入完整记录 -->
+    <insert id="insert" parameterType="com.dc.entity.TUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_user (
+        login_act,
+        login_pwd,
+        name,
+        phone,
+        email,
+        account_no_expired,
+        credentials_no_expired,
+        account_no_locked,
+        account_enabled,
+        create_time,
+        create_by,
+        edit_time,
+        edit_by,
+        last_login_time
+        ) VALUES (
+        #{loginAct},
+        #{loginPwd},
+        #{name},
+        #{phone},
+        #{email},
+        #{accountNoExpired},
+        #{credentialsNoExpired},
+        #{accountNoLocked},
+        #{accountEnabled},
+        #{createTime},
+        #{createBy},
+        #{editTime},
+        #{editBy},
+        #{lastLoginTime}
+        )
+    </insert>
+
+    <!-- 插入非空字段（选择性插入） -->
+    <insert id="insertSelective" parameterType="com.dc.entity.TUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="loginAct != null">login_act,</if>
+            <if test="loginPwd != null">login_pwd,</if>
+            <if test="name != null">name,</if>
+            <if test="phone != null">phone,</if>
+            <if test="email != null">email,</if>
+            <if test="accountNoExpired != null">account_no_expired,</if>
+            <if test="credentialsNoExpired != null">credentials_no_expired,</if>
+            <if test="accountNoLocked != null">account_no_locked,</if>
+            <if test="accountEnabled != null">account_enabled,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="editTime != null">edit_time,</if>
+            <if test="editBy != null">edit_by,</if>
+            <if test="lastLoginTime != null">last_login_time,</if>
+        </trim>
+        <trim prefix="VALUES (" suffix=")" suffixOverrides=",">
+            <if test="loginAct != null">#{loginAct},</if>
+            <if test="loginPwd != null">#{loginPwd},</if>
+            <if test="name != null">#{name},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="email != null">#{email},</if>
+            <if test="accountNoExpired != null">#{accountNoExpired},</if>
+            <if test="credentialsNoExpired != null">#{credentialsNoExpired},</if>
+            <if test="accountNoLocked != null">#{accountNoLocked},</if>
+            <if test="accountEnabled != null">#{accountEnabled},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="editTime != null">#{editTime},</if>
+            <if test="editBy != null">#{editBy},</if>
+            <if test="lastLoginTime != null">#{lastLoginTime},</if>
+        </trim>
+    </insert>
+
+    <!-- 根据主键查询 -->
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.dc.entity.TUser">
+        SELECT
+        *
+        FROM t_user
+        WHERE id = #{id}
+    </select>
+
+    <!--根据用户名字login_act查找用户-->
+    <select id="selectByLoginAct" parameterType="java.lang.String" resultMap="TUserResult">
+        SELECT * FROM t_user WHERE login_act = #{loginAct}
+    </select>
+
+    <!-- 更新非空字段 -->
+    <update id="updateByPrimaryKeySelective" parameterType="com.dc.entity.TUser">
+        UPDATE t_user
+        <set>
+            <if test="loginAct != null">login_act = #{loginAct},</if>
+            <if test="loginPwd != null">login_pwd = #{loginPwd},</if>
+            <if test="name != null">name = #{name},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="email != null">email = #{email},</if>
+            <if test="accountNoExpired != null">account_no_expired = #{accountNoExpired},</if>
+            <if test="credentialsNoExpired != null">credentials_no_expired = #{credentialsNoExpired},</if>
+            <if test="accountNoLocked != null">account_no_locked = #{accountNoLocked},</if>
+            <if test="accountEnabled != null">account_enabled = #{accountEnabled},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="editTime != null">edit_time = #{editTime},</if>
+            <if test="editBy != null">edit_by = #{editBy},</if>
+            <if test="lastLoginTime != null">last_login_time = #{lastLoginTime},</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 更新完整记录 -->
+    <update id="updateByPrimaryKey" parameterType="com.dc.entity.TUser">
+        UPDATE t_user
+        SET
+        login_act = #{loginAct},
+        login_pwd = #{loginPwd},
+        name = #{name},
+        phone = #{phone},
+        email = #{email},
+        account_no_expired = #{accountNoExpired},
+        credentials_no_expired = #{credentialsNoExpired},
+        account_no_locked = #{accountNoLocked},
+        account_enabled = #{accountEnabled},
+        create_time = #{createTime},
+        create_by = #{createBy},
+        edit_time = #{editTime},
+        edit_by = #{editBy},
+        last_login_time = #{lastLoginTime}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除记录 -->
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        DELETE FROM t_user
+        WHERE id = #{id}
+    </delete>
+
+</mapper>
