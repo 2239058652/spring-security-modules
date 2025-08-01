@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/security-02-db-login/security-02-db-login.iml" filepath="$PROJECT_DIR$/security-02-db-login/security-02-db-login.iml" />
       <module fileurl="file://$PROJECT_DIR$/security-03-login-page/security-03-login-page.iml" filepath="$PROJECT_DIR$/security-03-login-page/security-03-login-page.iml" />
+      <module fileurl="file://$PROJECT_DIR$/security-04-captcha-login/security-04-captcha-login.iml" filepath="$PROJECT_DIR$/security-04-captcha-login/security-04-captcha-login.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/spring-security-modules.iml" filepath="$PROJECT_DIR$/.idea/spring-security-modules.iml" />
     </modules>
   </component>

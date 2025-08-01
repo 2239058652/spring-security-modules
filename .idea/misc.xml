@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="Kotlin2JsCompilerArguments">
-    <option name="moduleKind" value="plain" />
-  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/security-01-base/pom.xml" />
         <option value="$PROJECT_DIR$/security-02-db-login/pom.xml" />
         <option value="$PROJECT_DIR$/security-03-login-page/pom.xml" />
+        <option value="$PROJECT_DIR$/security-04-captcha-login/pom.xml" />
       </list>
     </option>
   </component>

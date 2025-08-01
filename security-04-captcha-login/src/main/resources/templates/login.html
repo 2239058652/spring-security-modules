@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+<h2>Login</h2>
+<form action="/login" method="post">
+    <div>
+        <label>Username: <input type="text" name="username"/></label>
+    </div>
+    <div>
+        <label>Password: <input type="password" name="password"/></label>
+    </div>
+    <div>
+        <label>Captcha:
+            <input type="text" name="captcha"/>
+            <!-- 绑定点击事件，调用 refreshCaptcha 函数，同时给 src 动态添加随机参数 -->
+            <img onclick="refreshCaptcha(this)" src="/common/captcha" alt="Captcha"/>
+        </label>
+    </div>
+    <div>
+        <button type="submit">Login</button>
+    </div>
+</form>
+<script>
+    // 定义刷新验证码的函数
+    function refreshCaptcha(imgElement) {
+        // 获取当前时间戳作为随机参数，避免浏览器缓存
+        const timestamp = new Date().getTime();
+        // 拼接新的图片地址，加上时间戳参数
+        const newSrc = "/common/captcha?time=" + timestamp;
+        // 设置图片的 src 属性，触发重新请求
+        imgElement.src = newSrc;
+    }
+</script>
+</body>
+</html>
