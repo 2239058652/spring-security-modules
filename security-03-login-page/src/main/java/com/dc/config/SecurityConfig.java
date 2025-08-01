@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,19 +44,29 @@ public class SecurityConfig {
 
     //配置spring security框架的一些行为（配置自己的登录页，不要框架默认的）
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .formLogin(form -> form
+                        .loginPage("/toLogin")          // 自定义登录页路由
+                        .loginProcessingUrl("/login")   // 登录表单提交地址
+                        .defaultSuccessUrl("/index", true)  // 登录成功跳转
+                        .failureUrl("/toLogin?error")   // 登录失败跳转
+                        .permitAll()                    // 允许访问登录页相关
+                )
+                .authorizeHttpRequests(auth -> auth
+                        // 放行所有登录相关路径和静态资源
+                        .requestMatchers("/toLogin", "/login", "/css/**", "/js/**", "/images/**")
+                        .permitAll()
+                        // 其他所有请求需要认证
+                        .anyRequest().authenticated()
+                )
+                .csrf(AbstractHttpConfigurer::disable)  // 开发环境临时关闭
+                // 处理框架默认的登录页重定向
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .permitAll()
+                );
 
-        return httpSecurity
-                .formLogin(formLogin -> {
-                            formLogin.loginPage("/toLogin");
-                        }          // 自定义登录页
-                )
-                .authorizeHttpRequests(authz -> {
-                            authz
-                                    .requestMatchers( "toLogin").permitAll()
-                                    .anyRequest().authenticated();
-                        }
-                )
-                .build();
+        return http.build();
     }
 }
