@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity  // 开启spring security
 public class SecurityConfig {
 
     @Resource
@@ -32,7 +32,8 @@ public class SecurityConfig {
                         .loginProcessingUrl("/login")   // 登录表单提交地址
                         .defaultSuccessUrl("/index", true)  // 登录成功跳转
                         .failureUrl("/toLogin?error")   // 登录失败跳转
-                        .permitAll()                    // 允许访问登录页相关
+                        .permitAll()
+                        .successForwardUrl("/welcome")// 允许访问登录页相关
                 )
                 .authorizeHttpRequests(auth -> auth
                         // 放行所有登录相关路径和静态资源

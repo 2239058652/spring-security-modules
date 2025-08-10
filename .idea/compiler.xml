@@ -10,13 +10,14 @@
         <module name="security-01-base" />
         <module name="security-02-db-login" />
       </profile>
-      <profile name="Annotation profile for security-04-captcha-login" enabled="true">
+      <profile name="Annotation profile for security-05-login-info" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$USER_HOME$/Documents/repository/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
+        <module name="security-05-login-info" />
         <module name="security-04-captcha-login" />
       </profile>
     </annotationProcessing>
@@ -28,6 +29,7 @@
       <module name="security-02-db-login" options="-parameters" />
       <module name="security-03-login-page" options="-parameters" />
       <module name="security-04-captcha-login" options="-parameters" />
+      <module name="security-05-login-info" options="-parameters" />
     </option>
   </component>
 </project>
