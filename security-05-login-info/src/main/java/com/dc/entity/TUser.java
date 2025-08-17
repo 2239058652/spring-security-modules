@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -34,6 +36,10 @@ public class TUser implements Serializable, UserDetails {
     private LocalDateTime editTime;    // 编辑时间
     private Integer editBy;           // 编辑者 ID
     private LocalDateTime lastLoginTime; // 最后登录时间
+
+    // 用户角色列表
+    @JsonIgnore
+    private List<TRole> tRoleList;
 
     @Serial
     private static final long serialVersionUID = 1L;  // 序列化版本号
@@ -73,6 +79,10 @@ public class TUser implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        Collection<GrantedAuthority> authorities = new ArrayList<>();
+        for (TRole tRole : this.tRoleList) {
+            authorities.add(new SimpleGrantedAuthority(tRole.getRole()));
+        }
+        return authorities;
     }
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dc.mapper.TRoleMapper">
+
+    <!-- 字段映射 -->
+    <resultMap id="BaseResultMap" type="com.dc.entity.TRole">
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="role" column="role" jdbcType="VARCHAR"/>
+        <result property="roleName" column="role_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!-- 通用字段 -->
+    <sql id="Base_Column_List">
+        id, role, role_name
+    </sql>
+
+    <!-- 查询 -->
+    <select id="selectById" resultMap="BaseResultMap" parameterType="int">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_role
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_role
+    </select>
+    <select id="selectByUserId" resultType="com.dc.entity.TRole">
+        SELECT
+            tr.*
+        FROM
+            t_role tr
+                LEFT JOIN t_user_role tur ON tr.id = tur.role_id
+            LEFT JOIN t_user tu ON tur.user_id = tu.id
+        WHERE
+            tu.id = #{userId}
+    </select>
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.dc.entity.TRole">
+        INSERT INTO t_role (role, role_name)
+        VALUES (#{role}, #{roleName})
+    </insert>
+
+    <!-- 更新 -->
+    <update id="updateById" parameterType="com.dc.entity.TRole">
+        UPDATE t_role
+        SET role = #{role},
+        role_name = #{roleName}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM t_role WHERE id = #{id}
+    </delete>
+
+</mapper>
